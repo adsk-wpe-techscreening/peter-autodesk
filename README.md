@@ -21,7 +21,7 @@ Lastly, think of the code review exercise as an invitation to add value. Be empa
 The web application consists of 4 areas:
 1. React frond-application that consumes REST APIs as defined in APIContract.md  (files located under /recommendation-app/src folder)
 2. REST API Contract (APIContract.md file)
-3. Java application to implement REST APIs as defined in the APIContract.md. This Java application connects to MYSQL relational database to retrieve data (files located under /java folder)
+3. Java or Node.js application to implement REST APIs as defined in the APIContract.md. This application connects to MYSQL relational database to retrieve data (files should be located under the /java or /node folder)
 4. MYSQL Relational Database (files located under /mysql folder)
 
 Note: The repository doesn't include all the files required to build/release code or spin up compute/storage resources. Please avoid efforts in trying to execute the code in your computer. The intent of the exercise is to assess technical skills in the context of a code review.
