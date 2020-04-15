@@ -1,4 +1,4 @@
-export default class User {
+class User {
 
   constructor() {
     this.firstName;
@@ -56,5 +56,6 @@ export default class User {
   setProfilePhotoUrl(profilePhotoUrl) {
     this.profilePhotoUrl = profilePhotoUrl;
   }
-
 }
+
+module.export = User;

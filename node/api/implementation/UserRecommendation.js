@@ -1,4 +1,4 @@
-export default class UserRecommendation {
+class UserRecommendation {
 
   constructor() {
     this.userId;
@@ -49,3 +49,5 @@ export default class UserRecommendation {
   }
 
 }
+
+module.export = UserRecommendation;
