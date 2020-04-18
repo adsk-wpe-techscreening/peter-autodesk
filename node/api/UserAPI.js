@@ -1,7 +1,7 @@
 const User = require('./implementation/User');
 const UserAPIImplementation = require('./implementation/UserAPIImplementation');
 const UserRecommendation = require('./implementation/UserRecommendation');
-// const UserAPIRecommendationImplentation = require('./implementation/UserAPIRecommendationImplementation');
+const UserAPIRecommendationImplentation = require('./implementation/UserAPIRecommendationImplementation');
 
 class UsersAPI {
 
@@ -12,16 +12,14 @@ class UsersAPI {
    */
   getUserRecommendations(userId, callback) {
     try {
-      // listOfUserRecommendations = UserAPIRecommendationImplentation.getUserRecommendation(userId);
-      // Sorting logic invoked below. Sort the list by authorName  and then followed by bookTitle.
-      this.sortUserRecommendationsList(listOfUserRecommendations);
-      response = Response.status(Response.Status.OK).entity(listOfUserRecommendations)
-        .build();
+       UserAPIRecommendationImplentation.getUserRecommendation(userId, (err, listOfUserRecommendations) => {
+         response = Response.status(Response.Status.OK).entity(listOfUserRecommendations)
+           .build();
+      });
     } catch(ex) {
       logger.debug("Error while getting Recommendations",ex.getMessage());
     }
     return response;
-
   }
 
   /**
@@ -38,14 +36,6 @@ class UsersAPI {
     }
     return response;
   }
-  /**
-   * Method to recieve UserRecommendation<List>
-   * Sort User Recommendation List by 2 fields (Author_name and book_title)
-   * Void response. Sorting is done in-place.
-   */
-  sortUserRecommendationsList(list) {
-  }
-
 
 }
 

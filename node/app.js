@@ -9,14 +9,12 @@ const express = require('express'),
   UserApi = require('./api/UserAPI'),
   app = express();
 
-
-
 /**
  * App Variables
  */
+
 const port = process.env.PORT || "8000";
 
-// should use express router
   
 /**
  * Routes Definitions
@@ -25,6 +23,9 @@ const port = process.env.PORT || "8000";
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(function(req, res, next) {
+  res.status(404).send({ error: { message: 'Not Found' }});
+});
 
 app.use('/users', function (req, res, next) {
   if(req.method === 'POST') {
@@ -43,11 +44,6 @@ app.get('/user/:id/recommendation', function (req, res, next) {
 
 app.listen(port, () => {
   console.log(`Listening to requests on ${port}`);
-});
-
-// Catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  res.status(404).send({ error: { message: 'Not Found' }});
 });
 
 

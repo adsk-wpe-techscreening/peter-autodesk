@@ -1,15 +1,6 @@
 const mysql = require('mysql');
 const logger = require('logger');
 
-/*
-DB password in the code in plain-text 
-
-No use of DAO layers- direct query execution 
-
-No error handling 
-*/
-
-
 class UserAPIImplementation {
   constructor() {
 
@@ -31,8 +22,8 @@ class UserAPIImplementation {
       const conn = getConnection();
       let values = [user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhone(), user.getProfilePhotoUrl()];
 
-      conn.query(INSERT_USER, user.values, function(err, result) {
-        userId = result.insertId
+      conn.query(INSERT_USER, values, function(err, result) {
+        userId = result.insertId;
         callback(null, userId);
       });
     } catch (err) {
