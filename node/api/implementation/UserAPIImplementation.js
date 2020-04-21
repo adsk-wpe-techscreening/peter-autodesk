@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const logger = require('logger');
+const logger = require('morgan');
 
 class UserAPIImplementation {
   constructor() {
@@ -10,9 +10,9 @@ class UserAPIImplementation {
    * Insert a new User
    * 
    * @param user - A user object
-   * @return callback with userId
+   * @param callback with userId
    */
-  insertUser(user, callback) {
+  static insertUser(user, callback) {
     // for insert a new User
     let userResultSet = null;
     let userId = 0;
@@ -27,7 +27,7 @@ class UserAPIImplementation {
         callback(null, userId);
       });
     } catch (err) {
-      logger.debug("Error while adding user", err.getMessage());
+      logger.debug("Error while adding user", err);
     } 
   }
 

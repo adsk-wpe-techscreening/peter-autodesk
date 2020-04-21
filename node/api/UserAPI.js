@@ -1,3 +1,4 @@
+const logger = require('morgan');
 const User = require('./implementation/User');
 const UserAPIImplementation = require('./implementation/UserAPIImplementation');
 const UserRecommendation = require('./implementation/UserRecommendation');
@@ -8,36 +9,57 @@ class UsersAPI {
   /**
    *  To enable Get Recommendations API Endpoint
    * @param userId
-   * @return Response JSON with an array of recommendation objects
+   * @param response object to return the response and status
    */
-  getUserRecommendations(userId, callback) {
+  static getUserRecommendations(userId, response) {
     try {
        UserAPIRecommendationImplentation.getUserRecommendation(userId, (err, listOfUserRecommendations) => {
-         response = Response.status(Response.Status.OK).entity(listOfUserRecommendations)
-           .build();
+         listOfUserRecommendations.sort(sortUserRecommendationsList);
+         response.status(200).send(listOfUserRecommendations);
       });
-    } catch(ex) {
-      logger.debug("Error while getting Recommendations",ex.getMessage());
+    } catch(err) {
+      logger.debug("Error while getting Recommendations", err);
     }
-    return response;
   }
 
   /**
    * To Enable Create User API Endpoint
-   * @return Response Response status
+   * @param user object to be added
+   * @param response object to return the response and status
    */
-  addUser(user, callback) {
+  static addUser(user, response) {
     try {
-      userAPIImplementation.insertUser(user);
-      const result = "User saved : " + user;
-      response= Response.status(201).entity(result).build();
-    } catch(ex) {
-      logger.debug("Error while adding User",ex.getMessage());
+      userAPIImplementation.insertUser(user, (err, userId) => {
+        const result = "User saved, userId : " + userId;
+        response.status(201).send(result);
+      });
+    } catch(err) {
+      logger.debug("Error while adding User", err);
     }
-    return response;
+  }
+  
+  /**
+   * Method to sort user recommendation list array
+   * Sort User Recommendation List by 2 fields (Author_name and book_title)
+   */
+  sortUserRecommendationsList(a, b) {
+    if (a.authorName > b.authorName) {
+      return 1;
+    }
+    if (a.authorName < b.authorName) {
+      return -1;
+    }
+    if (a.bookTitle > b.bookTitle) {
+      return 1;
+    } 
+    if (a.bookTitle < b.bookTitle) {
+      return -1;
+    } 
+    return 0;
   }
 
 }
+
 
 
 module.export = UsersAPI;

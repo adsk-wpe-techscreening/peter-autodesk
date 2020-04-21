@@ -7,9 +7,9 @@ class UserAPIRecommendationImplentation {
    * Get User Recommendations
    *
    * @param userId
-   * @return List<UserRecommendation>
+   * @param callback function that returns userId
    */
-  getUserRecommendation(userId, callback) {
+  static getUserRecommendation(userId, callback) {
     userRecommendationList = new Array();
 
     const GET_BOOKS = "select book_title,isbn_number,genre_id,author_id from books where available=1 and " \
@@ -21,7 +21,7 @@ class UserAPIRecommendationImplentation {
     let values = [userId];
 
     conn.query(GET_BOOKS, values, function(err, result) {
-      result.forEach(item =>{
+      result.forEach(item => {
         const userRecommendation = new UserRecommendation();
         userRecommendation.setIsbnNumber(item["isbn_title"]);
         userRecommendation.setBookTitle(item["book_title"]);
