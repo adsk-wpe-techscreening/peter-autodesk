@@ -14,7 +14,7 @@ class UsersAPI {
   static getUserRecommendations(userId, response) {
     try {
        UserAPIRecommendationImplentation.getUserRecommendation(userId, (err, listOfUserRecommendations) => {
-         listOfUserRecommendations.sort(sortUserRecommendationsList);
+         listOfUserRecommendations.sort(this.sortUserRecommendationsList);
          response.status(200).send(listOfUserRecommendations);
       });
     } catch(err) {
@@ -29,7 +29,7 @@ class UsersAPI {
    */
   static addUser(user, response) {
     try {
-      userAPIImplementation.insertUser(user, (err, userId) => {
+      UserAPIImplementation.insertUser(user, (err, userId) => {
         const result = "User saved, userId : " + userId;
         response.status(201).send(result);
       });
