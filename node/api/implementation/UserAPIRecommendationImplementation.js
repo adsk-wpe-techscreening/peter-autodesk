@@ -10,7 +10,7 @@ class UserAPIRecommendationImplentation {
    * @param callback function that returns userId
    */
   static getUserRecommendation(userId, callback) {
-    userRecommendationList = new Array();
+    const userRecommendationList = new Array();
 
     const GET_BOOKS = "select book_title,isbn_number,genre_id,author_id from books where available=1 and " \
             + "book_id in (select distinct book_id from user_interests where user_id=?)"; 
@@ -33,7 +33,7 @@ class UserAPIRecommendationImplentation {
           // Retreive Genre name from Database
           genrePreparedStatement.setInt(1, booksResultSet.getInt("genre_id"));
           const genreId = item["genre_id"];
-          conn.query(GET_GENRE_NAME, [genreId], function(err, result) {
+          conn.query(GET_GENR_NAME, [genreId], function(err, result) {
             userRecommendation.setGenreName(result["genre_name"]);
             userRecommendationList.push(userRecommendation);
             callback(userRecommendationList);

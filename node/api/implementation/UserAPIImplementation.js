@@ -27,6 +27,7 @@ class UserAPIImplementation {
         callback(null, userId);
       });
     } catch (err) {
+      callback(err);
       logger.debug("Error while adding user", err);
     } 
   }
