@@ -17,7 +17,7 @@ class UserAPIRecommendationImplentation {
     const GET_AUTHOR_NAME = "select author_name from authors where author_id=?";
     const GET_GENRE_NAME = "select genre_name from genres where genre_id=?";
 
-    const conn = getConnection();
+    const conn = this.getConnection();
     let values = [userId];
 
     conn.query(GET_BOOKS, values, function(err, result) {
@@ -43,6 +43,10 @@ class UserAPIRecommendationImplentation {
     });
   }
 
+  /**
+   * Get Database Connection
+   *
+   */
   getConnection() {
     var connection = mysql.createConnection({
       host     : 'localhost',

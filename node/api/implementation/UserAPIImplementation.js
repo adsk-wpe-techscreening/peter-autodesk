@@ -19,7 +19,7 @@ class UserAPIImplementation {
 
     const INSERT_USER = "INSERT INTO users(user_id,first_name,last_name,email,phone,profile_photo_url) VALUES ?";
     try {
-      const conn = getConnection();
+      const conn = this.getConnection();
       let values = [user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhone(), user.getProfilePhotoUrl()];
 
       conn.query(INSERT_USER, values, function(err, result) {
@@ -31,7 +31,11 @@ class UserAPIImplementation {
       logger.debug("Error while adding user", err);
     } 
   }
-
+ 
+  /**
+   * Get Database Connection
+   *
+   */
   getConnection() {
     var connection = mysql.createConnection({
       host     : 'localhost',
